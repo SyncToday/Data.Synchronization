@@ -1,0 +1,1 @@
+C:\Users\david.podhola\S\my\Data.Synchronization\src\SyncToday.Data.Synchronization\obj\Debug\SyncToday.Data.Synchronization.fsprojResolveAssemblyReference.cache
