@@ -1,11 +1,11 @@
 namespace SyncToday.Data.Synchronization
 
-/// Documentation for my library
+/// Documentation for Data Synchronization Core
 ///
 /// ## Example
 ///
-///     let h = Library.hello 1
-///     printfn "%d" h
+///     let result = Synchronizer.synchronize [] ([]:int list) ([]:int list) (fun p->p) (fun p->p) (fun p->p) (fun p->p) (fun _->()) (fun _->()) (fun q ->())
+///     printfn "%A" result
 ///
 module Synchronizer = 
   

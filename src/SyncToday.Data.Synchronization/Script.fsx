@@ -1,8 +1,5 @@
-// Learn more about F# at http://fsharp.org. See the 'F# Tutorial' project
-// for more guidance on F# programming.
-
 #load "Library.fs"
 open SyncToday.Data.Synchronization
 
-let num = Library.hello 42
-printfn "%i" num
+let result = Synchronizer.synchronize [] ([]:int list) ([]:int list) (fun p->p) (fun p->p) (fun p->p) (fun p->p) (fun _->()) (fun _->()) (fun q ->())
+printfn "%A" result

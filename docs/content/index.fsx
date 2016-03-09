@@ -29,7 +29,8 @@ This example demonstrates using a function defined in this sample library.
 #r "SyncToday.Data.Synchronization.dll"
 open SyncToday.Data.Synchronization
 
-printfn "hello = %i" <| Library.hello 0
+let result = Synchronizer.synchronize [] ([]:int list) ([]:int list) (fun p->p) (fun p->p) (fun p->p) (fun p->p) (fun _->()) (fun _->()) (fun q ->())
+printfn "%A" result
 
 (**
 Some more info

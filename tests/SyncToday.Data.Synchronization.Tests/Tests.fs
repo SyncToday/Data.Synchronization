@@ -9,6 +9,12 @@ let notcalled _ = failwith "create should not be called"
 let comparenotcalled (_,_,_,_) = failwith "compare should not be called"
 
 [<Test>]
+let ``0-empty call sample`` () =
+  let result = Synchronizer.synchronize [] [] [] (fun p->p) (fun p->p) (fun p->p) (fun p->p) (fun p->()) (fun p->()) (fun q ->())
+  Assert.IsNotNull(result)
+  Assert.IsEmpty( result )
+
+[<Test>]
 let ``1-empty sync does nothing`` () =
   let result = Synchronizer.synchronize [] [] [] dummy dummy notcalled notcalled notcalled notcalled comparenotcalled
   Assert.IsNotNull(result)
