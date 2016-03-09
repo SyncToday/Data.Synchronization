@@ -9,6 +9,8 @@ In order to build run
     
 Documentation: http://synchronization.technology
 
+## Example of server-server synchronization
+![office365 wunderlist synctoday](https://cloud.githubusercontent.com/assets/436605/13639172/c61dba7a-e60f-11e5-8b4b-5a4f28055b98.gif)
 
 ## Build Status
 
