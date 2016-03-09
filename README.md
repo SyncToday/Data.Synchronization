@@ -14,7 +14,7 @@ Documentation: http://synchronization.technology
 
 Mono | .NET
 ---- | ----
-[![Mono CI Build Status](https://img.shields.io/travis/davidpodhola/Data.Synchronization/master.svg)](https://travis-ci.org/SyncToday/Data.Synchronization) | [![.NET Build Status](https://img.shields.io/appveyor/ci/davidpodhola/data-synchronization/master.svg)](https://ci.appveyor.com/project/davidpodhola/data-synchronization)
+[![Mono CI Build Status](https://img.shields.io/travis/SyncToday/Data.Synchronization/master.svg)](https://travis-ci.org/SyncToday/Data.Synchronization) | [![.NET Build Status](https://img.shields.io/appveyor/ci/davidpodhola/data-synchronization/master.svg)](https://ci.appveyor.com/project/davidpodhola/data-synchronization)
 
 ## Maintainer(s)
 
