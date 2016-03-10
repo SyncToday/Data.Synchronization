@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------
-// FAKE build script
+// FAKE build script for SyncToday.Data.Synchronization
 // --------------------------------------------------------------------------------------
 
 #r @"packages/build/FAKE/tools/FakeLib.dll"
@@ -367,6 +367,58 @@ Target "Release" (fun _ ->
 
 Target "BuildPackage" DoNothing
 
+module Util =
+    open System.Net
+
+    let run workingDir fileName args =
+        let ok = 
+            execProcess (fun info ->
+                info.FileName <- fileName
+                info.WorkingDirectory <- workingDir
+                info.Arguments <- args) TimeSpan.MaxValue
+        if not ok then failwith (sprintf "'%s> %s %s' task failed" workingDir fileName args)
+
+    let GetFullPath fileName : string =
+        if File.Exists(fileName) then
+            Path.GetFullPath(fileName)
+        else
+          Environment.GetEnvironmentVariable("PATH").Split(';') |> Seq.map ( fun p-> Path.Combine(p, fileName) ) |> Seq.find( fun p->File.Exists(p) )
+
+module Node =
+    let nodeFilePath =
+        if EnvironmentHelper.isUnix
+        then "node"
+        else 
+          if Environment.Is64BitOperatingSystem then "./packages/js/Node.js/node.exe" |> Path.GetFullPath else Util.GetFullPath "node.exe" // https://github.com/fsprojects/Fable/issues/54 fix
+
+    let run workingDir script args =
+        let args = sprintf "%s %s" script (String.concat " " args)
+        Util.run workingDir nodeFilePath args
+
+Target "Fable" (fun _ ->
+  //  Fable (http://fsprojects.github.io/Fable/index.html) is not released yet so we have to check if already present or download
+  let fablePath = 
+    if File.Exists("../Fable/build/fable/index.js") then
+      // we have Fable locally (cloned and built next to our folder)
+      "../Fable/build/fable/"
+    else
+      // Fable is not here; we need the version downloaded by paket
+      // but we need to build it first
+      (*
+      cd paket-files\js\fsprojects\Fable
+      call build.cmd
+      cd ../../../../
+      *)
+      Util.run "paket-files/js/fsprojects/Fable" "build" ""
+      "paket-files/js/fsprojects/Fable/build/fable"
+  Node.run "." fablePath [
+      "--projFile"; "src/SyncToday.Data.Synchronization/Script.fsx";
+      "--outDir"; "../../bin/js";
+      "--env"; "node"
+  ]
+  ()
+)
+
 // --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
@@ -377,6 +429,7 @@ Target "All" DoNothing
   ==> "Build"
   ==> "CopyBinaries"
   ==> "RunTests"
+  ==> "Fable"
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
   ==> "All"

@@ -16,8 +16,4 @@ IF NOT EXIST build.fsx (
   packages\build\FAKE\tools\FAKE.exe init.fsx
 )
 
-cd paket-files\js\fsprojects\Fable
-call build.cmd
-cd ../../../../
-
 packages\build\FAKE\tools\FAKE.exe build.fsx %*
