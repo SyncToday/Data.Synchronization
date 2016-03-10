@@ -70,5 +70,5 @@ run $PAKET_EXE restore
 
 [ ! -e build.fsx ] && run $PAKET_EXE update
 [ ! -e build.fsx ] && run $FAKE_EXE init.fsx
-run $FAKE_EXE "$@" $FSIARGS build.fsx
 
+run $FAKE_EXE "$@" $FSIARGS build.fsx

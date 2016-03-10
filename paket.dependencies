@@ -2,7 +2,7 @@ source https://nuget.org/api/v2
 
 group Build
   source https://nuget.org/api/v2
-  
+
   nuget SourceLink.Fake
   nuget FAKE
   nuget FSharp.Formatting
@@ -11,6 +11,11 @@ group Build
 
 group Test
   source https://nuget.org/api/v2
-  
+
   nuget NUnit ~> 2
   nuget NUnit.Runners ~> 2
+
+group Js
+  source https://nuget.org/api/v2
+
+  github fsprojects/Fable

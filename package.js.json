@@ -1,0 +1,24 @@
+{
+  "name": "datasynchronization",
+  "version": "1.0.1",
+  "description": "Data Synchronization Core",
+  "main": "Library.js",
+  "scripts": {
+    "test": "Script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyncToday/Data.Synchronization.git"
+  },
+  "keywords": [
+    "data",
+    "synchronization",
+    "sync"
+  ],
+  "author": "davidpodhola",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SyncToday/Data.Synchronization/issues"
+  },
+  "homepage": "https://github.com/SyncToday/Data.Synchronization#readme"
+}
