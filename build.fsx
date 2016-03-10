@@ -389,7 +389,14 @@ module Node =
         if EnvironmentHelper.isUnix
         then "node"
         else 
-          if Environment.Is64BitOperatingSystem then "./packages/js/Node.js/node.exe" |> Path.GetFullPath else Util.GetFullPath "node.exe" // https://github.com/fsprojects/Fable/issues/54 fix
+          if Environment.Is64BitOperatingSystem then 
+            if File.Exists("../Fable/build/fable/index.js") then"./packages/js/Node.js/node.exe" |> Path.GetFullPath 
+            else "./paket-files/js/fsprojects/Fable/packages/Node.js/node.exe" |> Path.GetFullPath 
+            (*
+            C:\S\packages\js\Node.js\node.exe paket-files/js/fsprojects/Fable/build/fable --projFile src/SyncToday.Data.Synchronization/Script.fsx --outDir ../../bin/js --env node  
+            Error: Cannot find module 'babel-core'            
+            *)
+          else Util.GetFullPath "node.exe" // https://github.com/fsprojects/Fable/issues/54 fix
 
     let run workingDir script args =
         let args = sprintf "%s %s" script (String.concat " " args)
