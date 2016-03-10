@@ -416,7 +416,7 @@ Target "Fable" (fun _ ->
       call build.cmd
       cd ../../../../
       *)
-      Util.run "paket-files/js/fsprojects/Fable" (if EnvironmentHelper.isUnix then "build.sh" else "build.cmd") ""
+      Util.run "paket-files/js/fsprojects/Fable" (if EnvironmentHelper.isUnix then "bash" else "build.cmd") (if EnvironmentHelper.isUnix then "build.sh" else "")
       "paket-files/js/fsprojects/Fable/build/fable"
   Node.run "." fablePath [
       "--projFile"; "src/SyncToday.Data.Synchronization/Script.fsx";
