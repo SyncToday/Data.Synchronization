@@ -1,6 +1,6 @@
 # Data.Synchronization
 
-This project can be used to synchronize data between different systems. Latest versions of [Sync.Today](https://sync.today) are built on the top of [Data.Synchronization](https://github.com/SyncToday/Data.Synchronization)
+This project can be used to synchronize data between different systems. Latest versions of [Sync.Today](https://sync.today) are built on the top of [Data.Synchronization](https://github.com/SyncToday/Data.Synchronization). Now also [Node.JS version](https://www.npmjs.com/package/datasynchronization).
 
 In order to build run 
 
