@@ -70,5 +70,9 @@ run $PAKET_EXE restore
 
 [ ! -e build.fsx ] && run $PAKET_EXE update
 [ ! -e build.fsx ] && run $FAKE_EXE init.fsx
-run $FAKE_EXE "$@" $FSIARGS build.fsx
 
+cd paket-files/js/fsprojects/Fable
+./build.sh
+cd ../../../../
+
+run $FAKE_EXE "$@" $FSIARGS build.fsx
