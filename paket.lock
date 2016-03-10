@@ -25,6 +25,31 @@ GITHUB
   specs:
     modules/Octokit/Octokit.fsx (58dce73f9a069ae7fbfbae993f5e6f06ed9218d5)
       Octokit
+GROUP Js
+NUGET
+  remote: https://www.nuget.org/api/v2
+  specs:
+    FAKE (4.21.4)
+    FSharp.Compiler.Service (2.0.0.6)
+    FSharp.Compiler.Service.ProjectCracker (2.0.0.6)
+    Newtonsoft.Json (8.0.2)
+    Node.js (5.3.0)
+    Npm.js (2.13.1)
+      Node.js (>= 0.12.7)
+    NUnit (2.6.4)
+    NUnit.Runners (2.6.4)
+GITHUB
+  remote: fsprojects/Fable
+  specs:
+    FULLPROJECT (9071f482b4eb5d09a1deadd8c8e9de7856d35b00)
+      FAKE
+      FSharp.Compiler.Service
+      FSharp.Compiler.Service.ProjectCracker
+      Newtonsoft.Json
+      Node.js
+      Npm.js
+      NUnit (2.6.4)
+      NUnit.Runners (2.6.4)
 GROUP Test
 NUGET
   remote: https://www.nuget.org/api/v2
