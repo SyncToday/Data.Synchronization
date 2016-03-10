@@ -4,7 +4,7 @@ build_script:
   - cmd: build.cmd
 test: off
 version: 0.0.1.{build}
-clone_folder: c:\
+clone_folder: c:\S
 artifacts:
   - path: bin
     name: bin
