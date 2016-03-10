@@ -72,6 +72,7 @@ run $PAKET_EXE restore
 [ ! -e build.fsx ] && run $FAKE_EXE init.fsx
 
 cd paket-files/js/fsprojects/Fable
+chmod +x ./build.sh
 ./build.sh
 cd ../../../../
 
