@@ -42,6 +42,6 @@ module Synchronizer =
 
     mappedExisting |> Seq.iter ( fun (id1,id2) -> compareAndUpdate(get1(id1),get2(id2),updateIn1,updateIn2) ) 
 
-    ( mapped |> Seq.toList) @ append1 @ append2 |> List.toSeq
+    append2 |> List.append( append1 |> List.append ( mapped |> Seq.toList) ) |> List.toSeq
 
     
