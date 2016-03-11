@@ -384,18 +384,34 @@ module Util =
         else
           Environment.GetEnvironmentVariable("PATH").Split(';') |> Seq.map ( fun p-> Path.Combine(p, fileName) ) |> Seq.find( fun p->File.Exists(p) )
 
+module Npm =
+    let npmFilePath =
+        if EnvironmentHelper.isUnix
+        then "npm"
+        else 
+          if Environment.Is64BitOperatingSystem then 
+            "./packages/js/Npm.js/tools/npm.cmd" |> Path.GetFullPath
+          else Util.GetFullPath "npm.cmd" // https://github.com/fsprojects/Fable/issues/54 fix
+
+    let script workingDir script args =
+        sprintf "run %s -- %s" script (String.concat " " args)
+        |> Util.run workingDir npmFilePath
+
+    let install workingDir modules =
+        sprintf "install %s" (String.concat " " modules)
+        |> Util.run workingDir npmFilePath
+
+    let command workingDir command args =
+        sprintf "%s %s" command (String.concat " " args)
+        |> Util.run workingDir npmFilePath
+
 module Node =
     let nodeFilePath =
         if EnvironmentHelper.isUnix
         then "node"
         else 
           if Environment.Is64BitOperatingSystem then 
-            if File.Exists("../Fable/build/fable/index.js") then"./packages/js/Node.js/node.exe" |> Path.GetFullPath 
-            else "./paket-files/js/fsprojects/Fable/packages/Node.js/node.exe" |> Path.GetFullPath 
-            (*
-            C:\S\packages\js\Node.js\node.exe paket-files/js/fsprojects/Fable/build/fable --projFile src/SyncToday.Data.Synchronization/Script.fsx --outDir ../../bin/js --env node  
-            Error: Cannot find module 'babel-core'            
-            *)
+            "./packages/js/Node.js/node.exe" |> Path.GetFullPath
           else Util.GetFullPath "node.exe" // https://github.com/fsprojects/Fable/issues/54 fix
 
     let run workingDir script args =
@@ -403,27 +419,15 @@ module Node =
         Util.run workingDir nodeFilePath args
 
 Target "Fable" (fun _ ->
-  //  Fable (http://fsprojects.github.io/Fable/index.html) is not released yet so we have to check if already present or download
-  let fablePath = 
-    if File.Exists("../Fable/build/fable/index.js") then
-      // we have Fable locally (cloned and built next to our folder)
-      "../Fable/build/fable/"
-    else
-      // Fable is not here; we need the version downloaded by paket
-      // but we need to build it first
-      (*
-      cd paket-files\js\fsprojects\Fable
-      call build.cmd
-      cd ../../../../
-      *)
-      Util.run "paket-files/js/fsprojects/Fable" (if EnvironmentHelper.isUnix then "bash" else "build.cmd") (if EnvironmentHelper.isUnix then "build.sh" else "FableJs")
-      "paket-files/js/fsprojects/Fable/build/fable"
-  Node.run "." fablePath [
+  // Fable (http://fsprojects.github.io/Fable/index.html) is already released
+  // we have our package.json in ./src/js
+  Npm.install "./src/js" []
+  Node.run "." "./src/js/node_modules/fable-compiler/" [
       "--projFile"; "src/SyncToday.Data.Synchronization/Script.fsx";
       "--outDir"; "../../bin/js";
       "--env"; "node"
   ]
-  ()
+  ["package.json";"README.md"] |> Seq.iter ( fun p -> CopyFile "bin/js" ( "src/js/" + p ) )
 )
 
 // --------------------------------------------------------------------------------------

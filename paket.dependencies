@@ -18,4 +18,6 @@ group Test
 group Js
   source https://nuget.org/api/v2
 
-  github fsprojects/Fable
+  nuget Node.js
+  nuget Npm.js
+
